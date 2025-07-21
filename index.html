@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
+</head>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<body class="vh-100">
+    <div class="container d-flex flex-column justify-content-center align-content-center">
+        <h1 class="text-center g-name mb-4 mt-2">Tic-<span>Tac</span>-Toe</h1>
+
+        <div class="d-flex gap-4 justify-content-center mb-0">
+            <div class="x">
+                <h3 class="fs-3"> <span>X</span>'s Score</h3>
+                <div id="x-count" class="fs-2 text-center"></div>
+            </div>
+
+            <div class="c-line"></div>
+
+            <div class="o">
+                <h3 class="fs-3"> <span>O</span>'s Score</h3>
+                <div id="o-count" class="fs-2 text-center"></div>
+            </div>
+        </div>
+
+        <div class="box d-flex justify-content-center align-items-center mt-5 mb-5">
+            <div class="line h-line" style="top: 33.33%;"></div>
+            <div class="line h-line" style="top: 66.66%;"></div>
+
+            <div class="line v-line" style="left: 33.33%;"></div>
+            <div class="line v-line" style="left: 66.66%;"></div>
+
+            <button class="tile" id="t1" style="top: 0px; left: 0px;"></button>
+            <button class="tile" id="t2" style="top: 0px; left: 33.33%;"></button>
+            <button class="tile" id="t3" style="top: 0px; left: 66.66%;"></button>
+            <button class="tile" id="t4" style="top: 33.33%; left: 0px;"></button>
+            <button class="tile" id="t5" style="top: 33.33%; left: 33.33%;"></button>
+            <button class="tile" id="t6" style="top: 33.33%; left: 66.66%;"></button>
+            <button class="tile" id="t7" style="top: 66.66%; left: 0px;"></button>
+            <button class="tile" id="t8" style="top: 66.66%; left: 33.33%;"></button>
+            <button class="tile" id="t9" style="top: 66.66%; left: 66.66%;"></button>
+        </div>
+
+        <div class="d-flex align-content-center justify-content-center">
+            <button class="btn btn-danger reset-btn mt-3 fs-3 text-center text p-0">RESET</button>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        let xWinCount = 0;
+        let oWinCount = 0;
+        let count = 0;
+
+        function winAlert(sign) {
+
+            Swal.fire({
+                title: `${sign} wins!`,
+                icon: "success",
+            }).then(() => {
+                reset();
+            });
+
+            if (sign === 'X') {
+                xWinCount++;
+                document.getElementById("x-count").innerText = xWinCount;
+            } else {
+                oWinCount++;
+                document.getElementById("o-count").innerText = oWinCount;
+            }
+        }
+
+        function winner(sign) {
+            let flag = true;
+            //---------------------------------------->
+            for (let i = 1; i <= 3; i++) {
+                let val = document.getElementById(`t${i}`).innerHTML;
+
+                if (val != sign) {
+                    flag = false;
+                    break;
+                }
+
+
+            }
+            if (flag) {
+                winAlert(sign);
+
+                return true;
+            }
+
+            //---------------------------------------->
+            flag = true;
+            for (let i = 4; i <= 6; i++) {
+                let val = document.getElementById(`t${i}`).innerHTML;
+
+                if (val != sign) {
+                    flag = false;
+                    break;
+                }
+
+
+            }
+            if (flag) {
+                winAlert(sign);
+                return true;
+            }
+
+
+            //---------------------------------------->
+            flag = true;
+            for (let i = 7; i <= 9; i++) {
+                let val = document.getElementById(`t${i}`).innerHTML;
+
+                if (val != sign) {
+                    flag = false;
+                    break;
+                }
+
+
+            }
+            if (flag) {
+                winAlert(sign);
+                return true;
+            }
+
+            //---------------------------------------->
+            flag = true;
+            for (let i = 1; i <= 7; i += 3) {
+                let val = document.getElementById(`t${i}`).innerHTML;
+
+                if (val != sign) {
+                    flag = false;
+                    break;
+                }
+
+
+            }
+            if (flag) {
+                winAlert(sign);
+                return true;
+            }
+
+            //---------------------------------------->
+            flag = true;
+            for (let i = 2; i <= 8; i += 3) {
+                let val = document.getElementById(`t${i}`).innerHTML;
+
+                if (val != sign) {
+                    flag = false;
+                    break;
+                }
+
+
+            }
+            if (flag) {
+                winAlert(sign);
+                return true;
+            }
+
+            //---------------------------------------->
+            flag = true;
+            for (let i = 3; i <= 9; i += 3) {
+                let val = document.getElementById(`t${i}`).innerHTML;
+
+                if (val != sign) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                winAlert(sign);
+                return true;
+            }
+
+            //---------------------------------------->
+            flag = true;
+            for (let i = 1; i <= 9; i += 4) {
+                let val = document.getElementById(`t${i}`).innerHTML;
+
+                if (val != sign) {
+                    flag = false;
+                    break;
+                }
+
+
+            }
+            if (flag) {
+                winAlert(sign);
+                return true;
+            }
+
+            //---------------------------------------->
+            flag = true;
+            for (let i = 3; i <= 7; i += 2) {
+                let val = document.getElementById(`t${i}`).innerHTML;
+
+                if (val != sign) {
+                    flag = false;
+                    break;
+                }
+
+
+            }
+            if (flag) {
+                winAlert(sign);
+                return true;
+            }
+
+
+            return false;
+
+        }
+
+        function reset(){
+            for(let i = 1 ; i <= 9; i++){
+                document.getElementById(`t${i}`).innerHTML = "";
+            }
+            count = 0;
+        }
+
+        $(document).ready(function () {
+            $(".tile").on("click", function () {
+                let val = this;
+                if (val.innerHTML == "") {
+                    if (count % 2 == 0) {
+                        val.innerHTML = `X`;
+                    } else {
+                        val.innerHTML = `O`;
+                    }
+                } else {
+                    alert("Don't press the same box")
+                }
+                count++;
+                let sign = val.innerHTML;
+
+                if (count >= 5) {
+                    let win = winner(sign);
+                    if (!win && count == 9) {
+                        Swal.fire({
+                            title: `Draw!!`,
+                            icon: "question",
+                        });
+                        reset();
+                    }
+                }
+            })
+            $(".reset-btn").on("click" ,function(){
+                reset();
+                document.getElementById("x-count").innerText = 0;
+                document.getElementById("o-count").innerText = 0;
+                xWinCount = 0;
+                oWinCount = 0;
+                count = 0;
+            })
+        })
+    </script>
+</body>
+
+</html>
